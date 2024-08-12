@@ -1,0 +1,34 @@
+{
+   "owner": "A00016739",
+   "codePut": "DECLARE\r\n    LV_DATE   DATE := SYSDATE;\r\n    LV_USER   VARCHAR2 (60) := USER;\r\n    LV_PIDM   NUMBER (10) := NULL;\r\nBEGIN\r\n    BEGIN\r\n        SELECT SPRIDEN_PIDM\r\n          INTO LV_PIDM\r\n          FROM SPRIDEN\r\n         WHERE SPRIDEN_ID = LV_USER AND SPRIDEN_CHANGE_IND IS NULL;\r\n    EXCEPTION\r\n        WHEN NO_DATA_FOUND\r\n        THEN\r\n            LV_PIDM := NULL;\r\n        WHEN TOO_MANY_ROWS\r\n        THEN\r\n            LV_PIDM := NULL;\r\n    END;\r\n\r\n    UPDATE BANINST1.Z_STU_ADVR_ZSADVR\r\n       SET ZSADVR_TERM_CODE = :TERM_CODE,\r\n           ZSADVR_PIDM = :ADVISOR_PIDM,\r\n           ZSADVR_ROLE_CODE = :ROLE_CODE,\r\n           ZSADVR_ADVISOR_CODE = :ADVISOR_CODE,\r\n           ZSADVR_ATTRIBUTE_CODE = :ATTRIBUTE_CODE,\r\n           ZSADVR_MINOR_CODE = :MINOR_CODE,\r\n           ZSADVR_SCHOOL_CODE = :SCHOOL_CODE,\r\n           ZSADVR_PROGRAM_CODE = :PROGRAM_CODE,\r\n           ZSADVR_CONCENTRATION_CODE = :CONCENTRATION_CODE,\r\n           ZSADVR_ALPHABET_START = :ALPHABET_START,\r\n           ZSADVR_ALPHABET_END = :ALPHABET_END,\r\n           ZSADVR_CLASSHRS_START = :CLASSHRS_START,\r\n           ZSADVR_CLASSHRS_END = :CLASSHRS_END,\r\n           ZSADVR_ACTIVITY_DATE = LV_DATE,\r\n           ZSADVR_ACTIVITY_PIDM = LV_PIDM,\r\n           ZSADVR_CAMPUS_CODE = :CAMP_CODE\r\n     WHERE ZSADVR_SURROGATE_ID = :id;\r\nEND;",
+   "codeDelete": "BEGIN\r\n   DELETE FROM BANINST1.Z_STU_ADVR_ZSADVR\r\n         WHERE ZSADVR_SURROGATE_ID = :id;\r\nEND;",
+   "virtualDomainRoles": [
+      {
+         "allowDelete": true,
+         "allowPost": true,
+         "allowPut": true,
+         "roleName": "ADMIN-GPBADMN",
+         "allowGet": true
+      },
+      {
+         "allowDelete": true,
+         "allowPost": true,
+         "allowPut": true,
+         "roleName": "REGISTRAR",
+         "allowGet": true
+      },
+      {
+         "allowDelete": true,
+         "allowPost": true,
+         "allowPut": true,
+         "roleName": "ADMIN-ZSAADVR",
+         "allowGet": true
+      }
+   ],
+   "codeGet": "SELECT ZSADVR_TERM_CODE        TERM_CODE,\r\n         ZSADVR_PIDM             ADVISOR_PIDM,\r\n         ZSADVR_ROLE_CODE        ROLE_CODE,\r\n         ZSADVR_ADVISOR_CODE     ADVISOR_CODE,\r\n         ZSADVR_SCHOOL_CODE      SCHOOL_CODE,\r\n         ZSADVR_PROGRAM_CODE     PROGRAM_CODE,\r\n         ZSADVR_MINOR_CODE       MINOR_CODE,         \r\n         ZSADVR_CONCENTRATION_CODE CONCENTRATION_CODE,\r\n         ZSADVR_CAMPUS_CODE      CAMP_CODE,\r\n         ZSADVR_ATTRIBUTE_CODE   ATTRIBUTE_CODE,         \r\n         ZSADVR_ALPHABET_START   ALPHABET_START,\r\n         ZSADVR_ALPHABET_END     ALPHABET_END,\r\n         ZSADVR_CLASSHRS_START   CLASSHRS_START,\r\n         ZSADVR_CLASSHRS_END     CLASSHRS_END,\r\n         ZSADVR_SURROGATE_ID     \"id\"\r\n    FROM BANINST1.Z_STU_ADVR_ZSADVR\r\n   WHERE    ZSADVR_TERM_CODE = nvl (:term_code, ZSADVR_TERM_CODE)\r\n         AND ZSADVR_PIDM = NVL(:advisor_pidm, ZSADVR_PIDM)\r\n         AND nvl(ZSADVR_SCHOOL_CODE,1) = NVL(:school_code, NVL(ZSADVR_SCHOOL_CODE,1))\r\n         AND ZSADVR_ADVISOR_CODE = NVL(:advisor_code, ZSADVR_ADVISOR_CODE)\r\n         AND nvl(ZSADVR_PROGRAM_CODE,1) = NVL(:program_code, NVL(ZSADVR_PROGRAM_CODE,1))\r\nORDER BY ZSADVR_TERM_CODE,\r\n         ZSADVR_ROLE_CODE,\r\n         ZSADVR_PROGRAM_CODE,\r\n         ZSADVR_SCHOOL_CODE,                  \r\n         ZSADVR_ATTRIBUTE_CODE,\r\n         ZSADVR_CAMPUS_CODE,\r\n         ZSADVR_ALPHABET_START",
+   "typeOfCode": "S",
+   "fileTimestamp": "2024-01-23T23:22:09Z",
+   "serviceName": "stuAdvisorAssignmentRules",
+   "codePost": "DECLARE\r\n    LV_DATE   DATE := SYSDATE;\r\n    LV_USER   VARCHAR2 (60) := USER;\r\n    LV_PIDM   NUMBER (10) := NULL;\r\nBEGIN\r\n    BEGIN\r\n        SELECT spriden_pidm\r\n          INTO LV_PIDM\r\n          FROM SPRIDEN\r\n         WHERE SPRIDEN_ID = LV_USER AND SPRIDEN_CHANGE_IND IS NULL;\r\n    EXCEPTION\r\n        WHEN NO_DATA_FOUND\r\n        THEN\r\n            LV_PIDM := NULL;\r\n        WHEN TOO_MANY_ROWS\r\n        THEN\r\n            LV_PIDM := NULL;\r\n    END;\r\n\r\n    INSERT INTO BANINST1.Z_STU_ADVR_ZSADVR (ZSADVR_TERM_CODE,\r\n                            ZSADVR_PIDM,\r\n                            ZSADVR_ROLE_CODE,\r\n                            ZSADVR_ADVISOR_CODE,\r\n                            ZSADVR_ATTRIBUTE_CODE,\r\n                            ZSADVR_MINOR_CODE,\r\n                            ZSADVR_SCHOOL_CODE,\r\n                            ZSADVR_PROGRAM_CODE,\r\n                            ZSADVR_CONCENTRATION_CODE,\r\n                            ZSADVR_ALPHABET_START,\r\n                            ZSADVR_ALPHABET_END,\r\n                            ZSADVR_CLASSHRS_START,\r\n                            ZSADVR_CLASSHRS_END,\r\n                            ZSADVR_ACTIVITY_DATE,\r\n                            ZSADVR_ACTIVITY_PIDM,\r\n                            ZSADVR_CAMPUS_CODE)\r\n         VALUES (:TERM_CODE,\r\n                 :ADVISOR_PIDM,\r\n                 :ROLE_CODE,\r\n                 :ADVISOR_CODE,\r\n                 :ATTRIBUTE_CODE,\r\n                 :MINOR_CODE,\r\n                 :SCHOOL_CODE,\r\n                 :PROGRAM_CODE,\r\n                 :CONCENTRATION_CODE,\r\n                 :ALPHABET_START,\r\n                 :ALPHABET_END,\r\n                 :CLASSHRS_START,\r\n                 :CLASSHRS_END,\r\n                 LV_DATE,\r\n                 LV_PIDM,\r\n                 :CAMP_CODE);\r\nEND;",
+   "developerSecurity": []
+}

@@ -1,0 +1,41 @@
+{
+   "owner": "A00016739",
+   "codePut": null,
+   "codeDelete": null,
+   "virtualDomainRoles": [
+      {
+         "allowDelete": false,
+         "allowPost": false,
+         "allowPut": false,
+         "roleName": "REGISTRAR",
+         "allowGet": true
+      },
+      {
+         "allowDelete": false,
+         "allowPost": false,
+         "allowPut": false,
+         "roleName": "ADMIN-ZSAADVR",
+         "allowGet": true
+      },
+      {
+         "allowDelete": false,
+         "allowPost": false,
+         "allowPut": false,
+         "roleName": "ADMIN-GPBADMN",
+         "allowGet": true
+      },
+      {
+         "allowDelete": false,
+         "allowPost": false,
+         "allowPut": false,
+         "roleName": "ADMIN-ZSASASI",
+         "allowGet": true
+      }
+   ],
+   "codeGet": "SELECT stvatts_code                        attribute_code,\r\n         stvatts_desc                        attribute_desc,\r\n         stvatts_code || ' - ' || stvatts_desc attribute_display,\r\n         stvatts_surrogate_id                \"id\"\r\n    FROM stvatts\r\nORDER BY stvatts_code",
+   "typeOfCode": "S",
+   "fileTimestamp": "2019-12-19T22:50:25Z",
+   "serviceName": "stuLovAttributes",
+   "codePost": null,
+   "developerSecurity": []
+}

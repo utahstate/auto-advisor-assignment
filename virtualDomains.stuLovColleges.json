@@ -1,0 +1,34 @@
+{
+   "owner": "A00016739",
+   "codePut": null,
+   "codeDelete": null,
+   "virtualDomainRoles": [
+      {
+         "allowDelete": false,
+         "allowPost": false,
+         "allowPut": false,
+         "roleName": "REGISTRAR",
+         "allowGet": true
+      },
+      {
+         "allowDelete": false,
+         "allowPost": false,
+         "allowPut": false,
+         "roleName": "ADMIN-GPBADMN",
+         "allowGet": true
+      },
+      {
+         "allowDelete": false,
+         "allowPost": false,
+         "allowPut": false,
+         "roleName": "ADMIN-ZSAADVR",
+         "allowGet": true
+      }
+   ],
+   "codeGet": "SELECT stvcoll_code                          college_code,\r\n       stvcoll_desc                          college_desc,\r\n       stvcoll_code || ' - ' || stvcoll_desc college_display,\r\n       stvcoll_surrogate_id\r\n  FROM stvcoll\r\nORDER BY stvcoll_desc",
+   "typeOfCode": "S",
+   "fileTimestamp": "2019-12-19T22:50:25Z",
+   "serviceName": "stuLovColleges",
+   "codePost": null,
+   "developerSecurity": []
+}

@@ -1,0 +1,416 @@
+{
+   "constantName": "stuAdvisorAssignmentRules",
+   "developerSecurity": [],
+   "extendsPage": null,
+   "fileTimestamp": "2024-08-12T22:06:39Z",
+   "modelView": {
+      "components": [
+         {
+            "resource": "virtualDomains.stuAdvisorAssignmentRules",
+            "name": "advisorRulesResource",
+            "type": "resource",
+            "staticData": []
+         },
+         {
+            "resource": "virtualDomains.stuLovColleges",
+            "name": "collegeResource",
+            "type": "resource",
+            "staticData": []
+         },
+         {
+            "resource": "virtualDomains.stuLovAdvisors",
+            "name": "advisorResource",
+            "type": "resource",
+            "staticData": []
+         },
+         {
+            "name": "advisorRoleResource",
+            "type": "resource",
+            "staticData": [
+               {
+                  "CODE": "P",
+                  "LABEL": "Primary"
+               },
+               {
+                  "CODE": "S",
+                  "LABEL": "Secondary"
+               }
+            ]
+         },
+         {
+            "resource": "virtualDomains.stuLovAdvisorTypes",
+            "name": "advisorTypeResource",
+            "type": "resource",
+            "staticData": []
+         },
+         {
+            "resource": "virtualDomains.stuLovPrograms",
+            "name": "programResource",
+            "type": "resource",
+            "staticData": []
+         },
+         {
+            "resource": "virtualDomains.stuLovConcentrations",
+            "name": "concentrationResource",
+            "type": "resource",
+            "staticData": []
+         },
+         {
+            "resource": "virtualDomains.stuLovMinors",
+            "name": "minorResource",
+            "type": "resource",
+            "staticData": []
+         },
+         {
+            "resource": "virtualDomains.stuLovAttributes",
+            "name": "attributeResource",
+            "type": "resource",
+            "staticData": []
+         },
+         {
+            "resource": "virtualDomains.stuLovCampus",
+            "name": "campusResource",
+            "type": "resource",
+            "staticData": []
+         },
+         {
+            "resource": "virtualDomains.stuLovAdvrTerm",
+            "name": "termCodeResource",
+            "type": "resource",
+            "staticData": []
+         },
+         {
+            "components": [
+               {
+                  "sourceParameters": {},
+                  "name": "termCodeFilter",
+                  "model": "",
+                  "sourceModel": "termCodeResource",
+                  "label": "Term Code",
+                  "loadInitially": true,
+                  "placeholder": "Term Code Selection",
+                  "type": "select",
+                  "labelKey": "ZSADVR_TERM_CODE",
+                  "valueKey": "ZSADVR_TERM_CODE",
+                  "onUpdate": "if ($termCodeFilter && $termCodeFilter.length === 6) \n{\n$advisorGrid.$load();\n}",
+                  "required": true
+               },
+               {
+                  "sourceParameters": {},
+                  "name": "collegeFilter",
+                  "sourceModel": "collegeResource",
+                  "label": "College Filter",
+                  "loadInitially": true,
+                  "placeholder": "college selection",
+                  "labelKey": "COLLEGE_DISPLAY",
+                  "type": "select",
+                  "valueKey": "COLLEGE_CODE",
+                  "onUpdate": "$advisorGrid.$load();",
+                  "value": "",
+                  "required": false
+               },
+               {
+                  "sourceParameters": {
+                     "PARAM_TERM_CODE": "$termCodeFilter"
+                  },
+                  "name": "advisorFilter",
+                  "sourceModel": "advisorResource",
+                  "label": "Advisor",
+                  "loadInitially": true,
+                  "placeholder": "advisor selection",
+                  "labelKey": "ADVISOR_DISPLAY",
+                  "type": "select",
+                  "valueKey": "ADVISOR_PIDM",
+                  "onUpdate": "$advisorGrid.$load();",
+                  "required": false
+               },
+               {
+                  "sourceParameters": {
+                     "ADVISOR_CODE": "$advisorTypeFilter"
+                  },
+                  "name": "advisorTypeFilter",
+                  "sourceModel": "advisorTypeResource",
+                  "label": "Advisor Type",
+                  "placeholder": "advisor type selection",
+                  "loadInitially": true,
+                  "type": "select",
+                  "labelKey": "ADVISOR_TYPE_DISPLAY",
+                  "valueKey": "ADVISOR_TYPE_CODE",
+                  "onUpdate": "$advisorGrid.$load();",
+                  "required": false
+               },
+               {
+                  "sourceParameters": {
+                     "PROGRAM": "$programFilter"
+                  },
+                  "name": "programFilter",
+                  "sourceModel": "programResource",
+                  "label": "Program",
+                  "placeholder": "program selection",
+                  "loadInitially": true,
+                  "type": "select",
+                  "labelKey": "PROGRAM_DISPLAY",
+                  "valueKey": "PROGRAM_CODE",
+                  "onUpdate": "$advisorGrid.$load();",
+                  "required": false
+               }
+            ],
+            "name": "filterBlock",
+            "showInitially": true,
+            "label": "",
+            "type": "block"
+         },
+         {
+            "components": [
+               {
+                  "allowDelete": true,
+                  "components": [
+                     {
+                        "sourceParameters": {},
+                        "name": "termCode",
+                        "model": "TERM_CODE",
+                        "sourceModel": "termCodeResource",
+                        "label": "Term Code",
+                        "loadInitially": true,
+                        "type": "select",
+                        "labelKey": "ZSADVR_TERM_CODE",
+                        "valueKey": "ZSADVR_TERM_CODE",
+                        "required": true
+                     },
+                     {
+                        "sourceParameters": {},
+                        "name": "advisorPidm",
+                        "model": "ADVISOR_PIDM",
+                        "sourceModel": "advisorResource",
+                        "label": "Advisor",
+                        "loadInitially": true,
+                        "labelKey": "ADVISOR_DISPLAY",
+                        "type": "select",
+                        "valueKey": "ADVISOR_PIDM",
+                        "value": "",
+                        "required": true
+                     },
+                     {
+                        "sourceParameters": {},
+                        "name": "advisorRole",
+                        "model": "ROLE_CODE",
+                        "sourceModel": "advisorRoleResource",
+                        "label": "Role",
+                        "loadInitially": true,
+                        "labelKey": "LABEL",
+                        "type": "select",
+                        "valueKey": "CODE",
+                        "required": true
+                     },
+                     {
+                        "sourceParameters": {},
+                        "name": "advisorCode",
+                        "model": "ADVISOR_CODE",
+                        "sourceModel": "advisorTypeResource",
+                        "label": "Advisor Type",
+                        "loadInitially": true,
+                        "labelKey": "ADVISOR_TYPE_DISPLAY",
+                        "type": "select",
+                        "valueKey": "ADVISOR_TYPE_CODE",
+                        "required": true
+                     },
+                     {
+                        "sourceParameters": {},
+                        "name": "collegeCode",
+                        "model": "SCHOOL_CODE",
+                        "sourceModel": "collegeResource",
+                        "label": "College",
+                        "loadInitially": true,
+                        "labelKey": "COLLEGE_DISPLAY",
+                        "type": "select",
+                        "valueKey": "COLLEGE_CODE",
+                        "required": true
+                     },
+                     {
+                        "sourceParameters": {},
+                        "name": "programCode",
+                        "model": "PROGRAM_CODE",
+                        "sourceModel": "programResource",
+                        "label": "Program",
+                        "loadInitially": true,
+                        "labelKey": "PROGRAM_DISPLAY",
+                        "type": "select",
+                        "valueKey": "PROGRAM_CODE",
+                        "required": true
+                     },
+                     {
+                        "sourceParameters": {},
+                        "name": "concentrationCode",
+                        "model": "CONCENTRATION_CODE",
+                        "sourceModel": "concentrationResource",
+                        "label": "Concentration",
+                        "loadInitially": true,
+                        "labelKey": "CONCENTRATION_DISPLAY",
+                        "type": "select",
+                        "valueKey": "CONCENTRATION_CODE",
+                        "required": false
+                     },
+                     {
+                        "sourceParameters": {},
+                        "name": "minorCode",
+                        "model": "MINOR_CODE",
+                        "sourceModel": "minorResource",
+                        "label": "Minor",
+                        "loadInitially": true,
+                        "labelKey": "MINOR_DISPLAY",
+                        "type": "select",
+                        "valueKey": "MINOR_CODE",
+                        "required": false
+                     },
+                     {
+                        "sourceParameters": {},
+                        "name": "campusCode",
+                        "sourceModel": "campusResource",
+                        "model": "CAMP_CODE",
+                        "label": "Campus",
+                        "loadInitially": true,
+                        "type": "select",
+                        "labelKey": "CAMP_DESC",
+                        "valueKey": "CAMP_CODE",
+                        "required": false
+                     },
+                     {
+                        "sourceParameters": {},
+                        "name": "attributeCode",
+                        "model": "ATTRIBUTE_CODE",
+                        "sourceModel": "attributeResource",
+                        "label": "Attribute",
+                        "loadInitially": true,
+                        "labelKey": "ATTRIBUTE_DISPLAY",
+                        "type": "select",
+                        "valueKey": "ATTRIBUTE_CODE",
+                        "required": false
+                     },
+                     {
+                        "readonly": false,
+                        "name": "alphaStart",
+                        "model": "ALPHABET_START",
+                        "label": "Alphabet Start",
+                        "loadInitially": true,
+                        "type": "text",
+                        "parameters": {},
+                        "required": false,
+                        "validation": {}
+                     },
+                     {
+                        "readonly": false,
+                        "name": "alphaEnd",
+                        "model": "ALPHABET_END",
+                        "label": "Alphabet End",
+                        "loadInitially": true,
+                        "type": "text",
+                        "parameters": {},
+                        "required": false,
+                        "validation": {}
+                     },
+                     {
+                        "readonly": false,
+                        "name": "classHrsStart",
+                        "fractionDigits": 2,
+                        "model": "CLASSHRS_START",
+                        "label": "Hours Start",
+                        "loadInitially": true,
+                        "type": "number",
+                        "parameters": {},
+                        "required": false,
+                        "validation": {}
+                     },
+                     {
+                        "readonly": false,
+                        "name": "classHrsEnd",
+                        "fractionDigits": 2,
+                        "model": "CLASSHRS_END",
+                        "label": "Hours End",
+                        "loadInitially": true,
+                        "type": "number",
+                        "parameters": {},
+                        "required": false,
+                        "validation": {}
+                     },
+                     {
+                        "readonly": true,
+                        "name": "activityDate",
+                        "model": "ACTIVITY_DATE",
+                        "label": "Activity Date",
+                        "loadInitially": true,
+                        "type": "datetime",
+                        "parameters": {},
+                        "value": "",
+                        "required": false,
+                        "validation": {}
+                     },
+                     {
+                        "readonly": true,
+                        "name": "activityPidm",
+                        "fractionDigits": 0,
+                        "model": "ACTIVITY_PIDM",
+                        "label": "Last Update",
+                        "loadInitially": true,
+                        "type": "number",
+                        "parameters": {},
+                        "value": "",
+                        "required": false,
+                        "validation": {}
+                     },
+                     {
+                        "name": "egolCode",
+                        "model": "EGOL_CODE",
+                        "loadInitially": true,
+                        "type": "hidden"
+                     }
+                  ],
+                  "onError": "if (response.status == 404)\n  alert('invalid resource');\nelse if (response.status == 500) {\n  if (response.data.errors.errorMessage)\n    alert(response.data.errors.errorMessage);\n  else\n    alert(response.data.errors[0].errorMessage);\n}",
+                  "allowNew": true,
+                  "pageSize": 10,
+                  "onSaveSuccess": "alert('Record Saved Successfully');",
+                  "loadInitially": false,
+                  "type": "grid",
+                  "name": "advisorGrid",
+                  "allowModify": true,
+                  "onLoad": "var widths = [70, 200, 90, 120, 300, 300, 300, 300, 300, 300,60, 60, 60, 60, 60, 60];\nfor ( var i in widths  ) {\n  $advisorGridgridApi.grid.columns[i].width = widths[i];\n}\n$advisorGridgridApi.grid.refresh();",
+                  "model": "advisorRulesResource",
+                  "allowReload": true,
+                  "parameters": {
+                     "ADVISOR_CODE": "$advisorTypeFilter",
+                     "TERM_CODE": "$termCodeFilter",
+                     "ADVISOR_PIDM": "$advisorFilter",
+                     "PROGRAM_CODE": "$programFilter",
+                     "SCHOOL_CODE": "$collegeFilter"
+                  }
+               }
+            ],
+            "name": "advisorBlock",
+            "showInitially": true,
+            "label": "Maintain Advisor Rules",
+            "type": "block"
+         }
+      ],
+      "name": "stuAdvisorAssignmentRules",
+      "objectName": "ZSAADVR",
+      "style": "",
+      "pageURL": "stuAdvisorAssignmentRules",
+      "title": "Advisor Assignment Rules",
+      "type": "page",
+      "importCSS": ""
+   },
+   "owner": "A00016739",
+   "pageRoles": [
+      {
+         "roleName": "ADMIN-GPBADMN",
+         "allow": true
+      },
+      {
+         "roleName": "ADMIN-ZSAADVR",
+         "allow": true
+      },
+      {
+         "roleName": "REGISTRAR",
+         "allow": true
+      }
+   ]
+}

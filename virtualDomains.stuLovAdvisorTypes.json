@@ -1,0 +1,34 @@
+{
+   "owner": "A00016739",
+   "codePut": null,
+   "codeDelete": null,
+   "virtualDomainRoles": [
+      {
+         "allowDelete": false,
+         "allowPost": false,
+         "allowPut": false,
+         "roleName": "ADMIN-GPBADMN",
+         "allowGet": true
+      },
+      {
+         "allowDelete": false,
+         "allowPost": false,
+         "allowPut": false,
+         "roleName": "ADMIN-ZSAADVR",
+         "allowGet": true
+      },
+      {
+         "allowDelete": false,
+         "allowPost": false,
+         "allowPut": false,
+         "roleName": "REGISTRAR",
+         "allowGet": true
+      }
+   ],
+   "codeGet": "SELECT stvadvr_code                        advisor_type_code,\r\n         stvadvr_desc                        advsior_type_desc,\r\n         stvadvr_code || ' - ' || stvadvr_desc advisor_type_display,\r\n         stvadvr_surrogate_id\r\n    FROM stvadvr\r\nORDER BY stvadvr_desc",
+   "typeOfCode": "S",
+   "fileTimestamp": "2019-12-19T22:50:25Z",
+   "serviceName": "stuLovAdvisorTypes",
+   "codePost": null,
+   "developerSecurity": []
+}
